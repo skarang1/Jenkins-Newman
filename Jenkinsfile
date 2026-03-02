@@ -21,6 +21,9 @@ pipeline {
     post {
         always {
             publishHTML([
+                allowMissing: false,
+                alwaysLinkToLastBuild: true,
+                keepAll: true,
                 reportDir: '.',
                 reportFiles: 'newman-report.html',
                 reportName: 'API Test Report'
