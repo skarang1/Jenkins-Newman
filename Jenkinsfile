@@ -6,9 +6,24 @@ pipeline {
     }
     
     stages {
-        stage('Checkout') {
+        stage('Setup Node.js') {
             steps {
-                checkout scm  // This pulls your collection files
+                sh '''
+                    # Install Node.js directly using NodeSource
+                    curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+                    apt-get install -y nodejs libatomic1
+                    
+                    # Verify installation
+                    node --version
+                    npm --version
+                '''
+            }
+        }
+        stage('Install Newman') {
+            steps {
+                sh '''
+                    npm install -g newman newman-reporter-html
+                '''
             }
         }
         stage('Run API Tests') {
