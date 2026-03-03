@@ -1,11 +1,6 @@
 pipeline {
     agent any
     stages {
-        stage('Checkout') {
-            steps {
-                checkout scm  // This pulls the collection files
-            }
-        }
         stage('Run API Tests') {
             steps {
                 sh '''
